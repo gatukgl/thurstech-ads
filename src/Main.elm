@@ -1,7 +1,7 @@
-module Main exposing (Model, Msg(..), init, main, update, view)
+module Main exposing (Msg(..), Speaker, init, main, update, view)
 
 import Browser
-import Html exposing (Html, div, input, text)
+import Html exposing (Html, div, input)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onInput)
 
@@ -18,14 +18,21 @@ main =
 -- MODEL
 
 
-type alias Model =
-    { content : String
+type alias Speaker =
+    { name : String
+    , title : String
+    , company : String
+    , image : String
     }
 
 
-init : Model
+init : Speaker
 init =
-    { content = "" }
+    { name = ""
+    , title = ""
+    , company = ""
+    , image = ""
+    }
 
 
 
@@ -33,24 +40,37 @@ init =
 
 
 type Msg
-    = Change String
+    = Name String
+    | Title String
+    | Company String
+    | Image String
 
 
-update : Msg -> Model -> Model
-update msg model =
+update : Msg -> Speaker -> Speaker
+update msg speaker =
     case msg of
-        Change newContent ->
-            { model | content = newContent }
+        Name name ->
+            { speaker | name = name }
+
+        Title title ->
+            { speaker | title = title }
+
+        Company company ->
+            { speaker | company = company }
+
+        Image image ->
+            { speaker | image = image }
 
 
 
 -- VIEW
 
 
-view : Model -> Html Msg
-view model =
+view : Speaker -> Html Msg
+view speaker =
     div []
-        [ input [ placeholder "Text to reverse", value model.content, onInput Change ] []
-        , div [] [ text (String.reverse model.content) ]
+        [ input [ placeholder "Speaker name", value speaker.name, onInput Name ] []
+        , input [ placeholder "Job title", value speaker.title, onInput Title ] []
+        , input [ placeholder "Company", value speaker.company, onInput Company ] []
+        , input [ placeholder "Image", value speaker.image, onInput Image ] []
         ]
-
