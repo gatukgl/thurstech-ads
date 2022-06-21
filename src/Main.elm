@@ -69,7 +69,8 @@ update msg speaker =
 view : Speaker -> Html Msg
 view speaker =
     div []
-        [ div []
+        [ h1 [] [ text "ThursTech Speakers" ]
+        , div []
             [ h2 [] [ text "Speaker 1" ]
             , input [ placeholder "Speaker name", value speaker.name, onInput Name ] []
             , input [ placeholder "Job title", value speaker.title, onInput Title ] []
